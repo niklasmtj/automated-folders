@@ -1,29 +1,38 @@
-#!/usr/bin/python3
-
 import os
 import time
 import json
 from collections import namedtuple
+from dotenv import load_dotenv
+from icalevents.icalevents import events
+from requests import request
+
+load_dotenv()
 
 courses = ["Programmierpraktikum", "SCM", "CGV"]
 folderNames = ["Vorlesung", "Übung", "Tutorium", "Sonstiges"]
 
 semesterNumber = '4.'
 
-if not os.path.isdir(f"/Users/niklasmetje/OneDrive - Universität zu Köln/1. Studium/{semesterNumber} Semester"):
+oneDriveFolder = ""
+
+if os.path.isdir(os.getenv("METIMAC_PATH")) :
+    oneDriveFolder = os.getenv("METIMAC_PATH")
+else :
+    oneDriveFolder = os.getenv("METMAC_PATH")
+
+if not os.path.isdir(f"{oneDriveFolder}/1. Studium{semesterNumber} Semester"):
     os.mkdir(
-        f"/Users/niklasmetje/OneDrive - Universität zu Köln/1. Studium/{semesterNumber} Semester")
+        f"{oneDriveFolder}/1. Studium/{semesterNumber} Semester")
 
 for course in courses:
-    if not os.path.isdir(f"/Users/niklasmetje/OneDrive - Universität zu Köln/1. Studium/{semesterNumber} Semester/{course}"):
+    if not os.path.isdir(f"{oneDriveFolder}/1. Studium{semesterNumber} Semester/{course}"):
         os.mkdir(
-            f"/Users/niklasmetje/OneDrive - Universität zu Köln/1. Studium/{semesterNumber} Semester/{course}")
-        for folder in folderNames:
+            f"{oneDriveFolder}/1. Studium/{semesterNumber} Semester/{course}")
+        for index, folder in enumerate(folderNames):
             os.mkdir(
-                f"/Users/niklasmetje/OneDrive - Universität zu Köln/1. Studium/{semesterNumber} Semester/{course}/{folder}")
+                f"{oneDriveFolder}/1. Studium/{semesterNumber} Semester/{course}/{folder}")
             print(
-                f"Created -> /Users/niklasmetje/OneDrive - Universität zu Köln/1. Studium/{semesterNumber} Semester/{course}/{folder}")
-
+                f"Created {index+1}/{len(folderNames)} -> {semesterNumber} Semester/{course}/{folder}")
 
 '''
 def getCurrentSemester():
