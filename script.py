@@ -52,10 +52,10 @@ folderNames = ["Sonstiges", "Tutorium", "Übung", "Vorlesung"]
 semesterNumber = '4.'
 
 oneDriveFolder = ""
-if os.path.isdir(os.getenv("METIMAC_PATH")) :
-    oneDriveFolder = os.getenv("METIMAC_PATH")
+if os.path.isdir(os.getenv("ONEDRIVE_MAC_PATH")) :
+    oneDriveFolder = os.getenv("ONEDRIVE_MAC_PATH")
 else :
-    oneDriveFolder = os.getenv("METMAC_PATH")
+    oneDriveFolder = os.getenv("ONEDRIVE_MACBOOK_PATH")
 
 if not os.path.isdir(f"{oneDriveFolder}/1. Studium{semesterNumber} Semester"):
     try:
@@ -76,7 +76,7 @@ for course in courses:
                 os.mkdir(
                     f"{oneDriveFolder}/1. Studium/{semesterNumber} Semester/{course}/{folder}")
                 print(
-                    f"✔️ - Created {index+1}/{len(folderNames)} -> {semesterNumber} Semester/{course}/{folder}")
+                    f"✔️ - Created {index+1}/{len(folderNames)} -> {course}/{folder}")
             except:
                 print("✖️ - Course subfolders already created!")
 
